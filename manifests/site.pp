@@ -1,7 +1,5 @@
 node 'node1' {
 
-  include base
-
   class { '::tomcat':
     
     xms            => '60m',
@@ -19,8 +17,6 @@ node 'node1' {
 }
 
 node 'node2' {
-
-  include base
 
   class { '::tomcat':
     
