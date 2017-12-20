@@ -1,7 +1,5 @@
 node 'node3' {
 
-  include base
-
   class { '::tomcat':
     
     xms            => '60m',
