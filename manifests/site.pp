@@ -1,3 +1,5 @@
+hiera_include('classes')
+
 node 'node3' {
 
   include tomcat
