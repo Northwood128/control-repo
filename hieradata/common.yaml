@@ -4,6 +4,8 @@ message: "This node is using common data"
 tomcat::xms: '54m'
 tomcat::xmx: '100m'
 tomcat::maxpermsize: '100M' 
+classes:
+  - ntp
 
 #Enable code manager
 #puppet_enterprise::profile::master::code_manager_auto_configure: true
