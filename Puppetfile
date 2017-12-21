@@ -2,7 +2,7 @@ forge "https://forge.puppet.com"
 
 # Modules from the Puppet Forge
 # Versions should be updated to be the latest at the time you start
-mod 'puppetlabs-ntp', 		'7.0.0'
+# mod 'puppetlabs-ntp', 		'7.0.0'
 mod 'puppetlabs-haproxy', 	'2.0.1'
 
 # Modules from Git
