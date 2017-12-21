@@ -1,5 +1,3 @@
-lookup('classes', {merge => unique}).include
-
 node 'node1' {
 
   include tomcat 
