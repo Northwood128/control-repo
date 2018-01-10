@@ -1,11 +1,11 @@
 # Class: elasticsearch
 # ===========================
 
-class profile_elasticsearch {
+class profile::elasticsearch {
 
-  include profile_elasticsearch::install
-  include profile_elasticsearch::instances
-  include profile_elasticsearch::curator
+  include profile::elasticsearch::install
+  include profile::elasticsearch::instances
+  include profile::elasticsearch::curator
 
 }
 
