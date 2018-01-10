@@ -22,11 +22,11 @@ mod 'cristifalcas/curator', '3.0.2'
 #  :branch => 'docs_experiment'
 # puppet-rundeck
 
-mod 'puppet_profiles',
+mod 'profile',
   :git => 'git@github.com:Northwood128/puppet_profiles.git',
   :ref => 'elasticsearch'
 
-mod 'puppet_roles',
+mod 'role',
   :git => 'git@github.com:Northwood128/puppet_roles.git',
   :ref => 'elasticsearch'
 
