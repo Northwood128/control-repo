@@ -1,15 +1,60 @@
----
-message: "This node is using common data"
+nstall settings
+elasticsearch::install::ensure: 'present'
+elasticsearch::install::version: '6.1.1'
+elasticsearch::install::status: 'enabled'
+elasticsearch::install::repo_version: '6.x'
+elasticsearch::install::aws_region:  "%{facts.ec2_metadata.placement.availability-zone}"
+elasticsearch::install::datadir: '/var/lib/elasticsearch-data'
+elasticsearch::install::logdir: '/var/log/elasticsearch'
+elasticsearch::install::configdir: '/etc/elasticsearch'
+elasticsearch::install::api_protocol: 'http'
+elasticsearch::install::api_host: 'localhost'
+elasticsearch::install::api_port: '9200'
+elasticsearch::install::api_url: "%{lookup('elasticsearch::install::api_protocol')}://%{lookup('elasticsearch::install::api_host')}:%{lookup('elasticsearch::install::api_port')}"
+elasticsearch::install::cluster_name: 'elasticsearch-cluster'
+elasticsearch::install::max_locked_memory: 'unlimited'
+elasticsearch::install::node_discovery_type: 'ec2'
+elasticsearch::install::multicast_enabled: false
+elasticsearch::install::security_groups: "%{facts.ec2_metadata.security-groups}"
+elasticsearch::install::shards: '3'
+elasticsearch::install::jvm_heap_size: ''
+elasticsearch::install::replicas: '1'
+elasticsearch::install::bootstrap_memory_lock: true
+elasticsearch::install::network_host: '0.0.0.0'
+elasticsearch::install::index_refresh_int: '5s'
 
-tomcat::xms: '64m'
-tomcat::xmx: '128m'
-tomcat::maxpermsize: '128M'
+# Instance settings
+elasticsearch::instance::instance_name: "%{facts.ec2_metadata.instance-id}"
+elasticsearch::instance::instance_config: {}
+elasticsearch::instance::instance_init_defaults: {}
+elasticsearch::instance::additional_plugins:
+  - 'cloud-aws'
+  - 'lmenezes/elasticsearch-kopf'
+elasticsearch::instance::plugin_ensure: 'present'
 
-#Enable code manager
-#puppet_enterprise::profile::master::code_manager_auto_configure: true
-#puppet_enterprise::master::code_manager::authenticate_webhook: false
-#puppet_enterprise::master::code_manager::manage_private_key: false
-#pe-console-services tuning
-#https://docs.puppetlabs.com/pe/latest/console_config.html#tuning-the-classifier-synchronization-period
-#disable classifier scheduled sync and rely on r10k postrun command to sync the classes
-#puppet_enterprise::profile::console::classifier_synchronization_period: 0
+# Backup settings
+elasticsearch::backup::s3_bucket: undef,
+elasticsearch::backup::curator_config_file: "%{lookup('elasticsearch::install::configdir')}/curator_config.yml"
+elasticsearch::backup::curator_actions_file: "%{lookup('elasticsearch::install::configdir')}/curator_actions.yml"
+elasticsearch::backup::curator_backup_kibana: true
+elasticsearch::backup::healthcheck_url: "%{lookup(elasticsearch::install::api_url)}"
+elasticsearch::backup::snapshot_file: "%{lookup('elasticsearch::install::configdir')}/s3_snapshot_enabled"
+elasticsearch::backup::snapshot_url: "%{lookup('elasticsearch::install::api_url')}/_snapshot"
+elasticsearch::backup::snapshot_repo_alias: 's3-backup'
+elasticsearch::backup::snapshot_cmd: >
+"curl -XPUT '${snapshot_url}/${snapshot_repo_alias}' -d '{
+\"type\": \"s3\",
+\"settings\": {
+  \"bucket\": \"${s3_bucket}\",
+  \"region\": \"${region}\"}
+  }'",
+elasticsearch::backup::index_prefix: 'logstash-'
+elasticsearch::backup::kibana_index_prefix: '.kibana'
+elasticsearch::backup::wait_for_completion: 'True'
+elasticsearch::backup::continue_if_exception: 'False'
+elasticsearch::backup::cron_hour: '2'
+elasticsearch::backup::cron_minute: '00'
+elasticsearch::backup::backup_days_wait: '14'
+elasticsearch::backup::del_days_wait: '15'
+elasticsearch::backup::master_only: true
+
