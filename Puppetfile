@@ -7,7 +7,7 @@ forge "https://forge.puppet.com"
 
 mod 'elastic-elasticsearch', '6.1.0'
 mod 'cristifalcas/curator', '3.0.2'
-mod 'puppetlabs-stdlib', '3.2.1'
+mod 'puppetlabs-stdlib', '4.24.0'
 
 # Modules from Git
 # Examples: https://github.com/puppetlabs/r10k/blob/master/doc/puppetfile.mkd#examples
