@@ -20,3 +20,13 @@ mod 'cristifalcas/curator', '3.0.2'
 #mod 'apache',
 #  :git    => 'https://github.com/puppetlabs/puppetlabs-apache',
 #  :branch => 'docs_experiment'
+# puppet-rundeck
+
+mod 'puppet_profiles',
+  :git => 'git@github.com:Northwood128/puppet_profiles.git',
+  :ref => 'elasticsearch'
+
+mod 'puppet_roles',
+  :git => 'git@github.com:Northwood128/puppet_roles.git',
+  :ref => 'elasticsearch'
+
