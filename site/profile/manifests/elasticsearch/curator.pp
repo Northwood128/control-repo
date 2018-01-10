@@ -4,7 +4,7 @@
 #
 # Usage: Include profile_elasticsearch::backup in your roles
 
-class profile_elasticsearch6::backup (
+class profile_elasticsearch::backup (
 
   String $s3_bucket             = '',
   String $curator_config_file   = '',
